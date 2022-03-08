@@ -18,7 +18,6 @@ class Solution {
         
         var before: ListNode? = nil
         while true {
-            //print(node?.val, nodeNext.val)
             let temp = nodeNext.next
             node?.next = temp
             nodeNext.next = node
@@ -29,7 +28,6 @@ class Solution {
             node = temp
             if node?.next == nil  { return ret }
             nodeNext = node?.next as! ListNode
-            //print("HELL")
         }
         return ret
     }
