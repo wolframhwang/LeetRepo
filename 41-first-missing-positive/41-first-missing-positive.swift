@@ -1,43 +1,24 @@
+
 class Solution {
-    func firstMissingPositive(_ nums: [Int]) -> Int {
-        let maxNum = nums.count + 1
-        var nums = nums
-        var result = 1
-        for index in 0..<nums.count {
-            if nums[index] == result {
-                result += 1
-            }
-
-            if nums[index] <= 0 || nums[index] > nums.count {
-                nums[index] = 1
-            }
-        }
-
-        if result == 1 || result == maxNum {
-            return result
-        }
-
-        var isLastIndexExists = false
-        for index in 0..<nums.count {
-            let num = abs(nums[index])
-
-            if num > nums.count - 1 {
-                isLastIndexExists = true
+    func firstMissingPositive(_ source: [Int]) -> Int {
+        let N = source.count
+        
+        var nums = source
+        var index = 0
+        while index < N {
+            if index > 0, index < N, nums[index] < N, nums[index] > 0, nums[index] != index + 1, nums[nums[index] - 1] != nums[index] {
+                nums.swapAt(index, nums[index] - 1)
             } else {
-                nums[num] = -abs(nums[num])
+                index += 1
             }
         }
-
-        for index in result..<nums.count {
-            if nums[index] > 0 {
-                return index
+        
+        for i in 0..<N {
+            if nums[i] - 1 != i {
+                return i + 1
             }
         }
-
-        if !isLastIndexExists {
-            return nums.count
-        }
-    
-        return maxNum
+        return N + 1
+        
     }
 }
