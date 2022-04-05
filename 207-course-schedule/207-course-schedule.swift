@@ -2,24 +2,26 @@ class Solution {
     func canFinish(_ numCourses: Int, _ prerequisites: [[Int]]) -> Bool {
         guard prerequisites.count > 0 else { return true }
         
-        var graph = [Int:[Int]](), inDegrees = [Int:Int](), removedEdges = 0
+        var graph = [Int:[Int]](), inDegree = [Int:Int](), removedEdges = 0
         
         for p in prerequisites {
             graph[p[1], default:[]].append(p[0])
-            inDegrees[p[0], default:0] += 1
+            inDegree[p[0], default:0] += 1
         }
         
-        var bfsQueue = Array(0..<numCourses).filter { (inDegrees[$0] ?? 0) == 0 }
+        var q = Array(0..<numCourses).filter { (inDegree[$0] ?? 0) == 0 }
         
-        while !bfsQueue.isEmpty {
-            guard let outNodes = graph[bfsQueue.removeFirst()] else { continue }
+        while !q.isEmpty {
+            guard let outNodes = graph[q.removeFirst()] else { continue }
             removedEdges += outNodes.count
-            outNodes.filter { inDegrees[$0] != nil }.forEach {
-                inDegrees[$0]! -= 1
-                if inDegrees[$0] == 0 {
-                    bfsQueue.append($0)
+            outNodes
+                .filter { inDegree[$0] != nil }
+                .forEach {
+                    inDegree[$0]! -= 1
+                    if inDegree[$0] == 0 {
+                        q.append($0)
+                    }
                 }
-            }
         }
         return removedEdges == prerequisites.count
     }
