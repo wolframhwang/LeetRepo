@@ -2,6 +2,7 @@ class Solution {
     func findUnsortedSubarray(_ nums: [Int]) -> Int {
         //print(nums)
         var stack: [Int] = []
+        var stack2: [Int] = []
         var l = nums.count, r = 0
         for i in 0..<nums.count {
             while (!stack.isEmpty && nums[stack.last!] > nums[i]) {
@@ -9,12 +10,12 @@ class Solution {
             }
             stack.append(i)
         }
-        stack = []
+        
         for i in (0..<nums.count).reversed() {
-            while !stack.isEmpty, nums[stack.last!] < nums[i] {
-                r = max(r, stack.popLast()!)
+            while !stack2.isEmpty, nums[stack2.last!] < nums[i] {
+                r = max(r, stack2.popLast()!)
             }
-            stack.append(i)
+            stack2.append(i)
         }
         return r - l > 0 ? r - l + 1: 0
     }
