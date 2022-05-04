@@ -15,10 +15,6 @@ class Solution {
             }
             index += 1
         }
-        while !nums.isEmpty, nums.last! == -1 {
-            //print("HOCK")
-            nums.popLast()!
-        }
         
         return index
     }
