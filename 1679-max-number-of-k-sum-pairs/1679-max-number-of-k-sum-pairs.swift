@@ -1,21 +1,21 @@
+
 class Solution {
     func maxOperations(_ nums: [Int], _ k: Int) -> Int {
-        var nums = nums.sorted { $0 < $1 }
-        var l = 0, r = nums.count - 1
+        var map: [Int: Int] = [:]
         var answer = 0
         
-        while l < r {
-            let sum = nums[l] + nums[r]
-            if sum == k {
+        for i in 0..<nums.count {
+            let current = nums[i]
+            let compensate = k - current
+            if map[compensate, default: 0] > 0 {
+                map[compensate] = map[compensate, default: 0] - 1
                 answer += 1
-                l += 1
-                r -= 1
-            } else if sum < k {
-                l += 1
             } else {
-                r -= 1
+                map[current] = map[current, default: 0] + 1
             }
         }
+        
+        
         return answer
     }
 }
