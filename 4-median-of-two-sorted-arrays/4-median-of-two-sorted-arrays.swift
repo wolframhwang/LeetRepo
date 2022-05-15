@@ -10,38 +10,42 @@ class Solution {
             return Double(nums1[m/2] + nums1[(m-1)/2]) / 2.0
         }
         
-        var L = nums1 //larger array
-        var S = nums2 //smaller array
-        if L.count < S.count { 
+        var L: [Int] = []
+        var S: [Int] = []
+        if nums1.count < nums2.count {
             L = nums2
             S = nums1
+        } else {
+            L = nums1
+            S = nums2
         }
         
-        var l = L.count //L size
-        var s = S.count //S size
+        var l = L.count
+        var s = S.count
         var left = 0, right = s
+        
         while left <= right {
-            var smid = (left + right)/2 //binary search for desired partition in smaller array
-            var lmid = (l+s+1) / 2 - smid //balancing partition in larger array
+            var smid = (left + right) / 2
+            var lmid = (l + s + 1) / 2 - smid
 
-            var sl = smid <= 0 ? Int.min : S[smid-1] //value left of mid in smaller array
-            var sr = smid >= s ? Int.max : S[smid] //value right of mid in smaller array
+            var sl = smid <= 0 ? Int.min : S[smid - 1]
+            var sr = smid >= s ? Int.max : S[smid]
 
-            var ll = lmid <= 0 ? Int.min : L[lmid-1] //value right of mid in larger array
-            var lr = lmid >= l ? Int.max : L[lmid] //value right of mid in larger array
+            var ll = lmid <= 0 ? Int.min : L[lmid - 1]
+            var lr = lmid >= l ? Int.max : L[lmid]
 
-            if sl > lr { //we are too right of solution
+            if sl > lr {
                 right = smid - 1
-            } else if ll > sr { //we are too left of solution
+            } else if ll > sr {
                 left = smid + 1
-            } else { //we found the solution
+            } else {
                 if (l+s) % 2 == 1 {
                     return Double(max(sl, ll))
                 } else {
-                    return Double(min(sr, lr) + max(sl, ll)) / 2.0 
+                    return Double(min(sr, lr) + max(sl, ll)) / 2.0
                 }
             }
         }
-        return 0.0 // should not reach for a valid input
+        return 0.0
     }
 }
