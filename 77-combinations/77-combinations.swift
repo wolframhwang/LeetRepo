@@ -1,7 +1,6 @@
 class Solution {
     var answer: [[Int]] = []
     var inputArray: [Int] = []
-    var visit: [Bool] = []
     var k = 0, n = 0
     
     func recur(_ now: Int) {
@@ -21,8 +20,6 @@ class Solution {
         self.n = n + 1
         self.k = k
         
-        
-        visit = [Bool](repeating: false, count: n + 1)
         
         recur(1)
         
