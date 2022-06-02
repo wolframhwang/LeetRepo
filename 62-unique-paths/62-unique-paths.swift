@@ -1,18 +1,14 @@
 class Solution {
+    var dp = [[Int]](repeating: [Int](repeating: 0, count: 110), count: 110)
     func uniquePaths(_ m: Int, _ n: Int) -> Int {
-        var dp = [[Int]](repeating: [Int](repeating: 0, count: n), count: m)
-        for i in 0..<m {
-            dp[i][0] = 1
+        if dp[m][n] != 0 {
+            return dp[m][n]
         }
-        for i in 1..<n {
-            dp[0][i] = 1
+        if m == 1 || n == 1 {
+            dp[m][n] = 1
+            return dp[m][n]
         }
-        
-        for i in 1..<m {
-            for j in 1..<n {
-                dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
-            }
-        }
-        return dp[m - 1][n - 1]
+        dp[m][n] = uniquePaths(m - 1, n) + uniquePaths(m, n - 1)
+        return dp[m][n]
     }
 }
