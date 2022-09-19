@@ -8,7 +8,6 @@ class Solution {
     var chara: [Character: Int] = [:]
     var ret: [[Character]] = []
     var ans: [[Character]] = []
-    var ss = 0
     
     func recur(_ index: Int) {
         if index == nextStep.count {
@@ -31,7 +30,6 @@ class Solution {
             col[y][i] = false
             row[x][i] = false
         }
-        // 4 % 3 = 1,  7 % 3 = 2
     }
 
     func solveSudoku(_ board: inout [[Character]]) {
@@ -44,8 +42,8 @@ class Solution {
             id += 1
         }
         
-        for i in 0..<board.count {
-            for j in 0..<board[i].count {
+        for i in stride(from: 0, to: board.count, by: 1) {
+            for j in stride(from: 0, to: board[i].count, by: 1) {
                 if board[i][j] == "." {
                     nextStep.append((i, j))
                 } else {
