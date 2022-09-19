@@ -8,6 +8,7 @@ class Solution {
     var chara: [Character: Int] = [:]
     var ret: [[Character]] = []
     var ans: [[Character]] = []
+    let temp: Character = "."
     
     func recur(_ index: Int) {
         if index == nextStep.count {
@@ -24,7 +25,7 @@ class Solution {
             row[x][i] = true
             col[y][i] = true
             box[j][i] = true
-            ret[x][y] = digit[i]!
+            ret[x][y] = digit[i, default: temp]
             recur(index + 1)
             box[j][i] = false
             col[y][i] = false
@@ -47,7 +48,7 @@ class Solution {
                 if board[i][j] == "." {
                     nextStep.append((i, j))
                 } else {
-                    let val = chara[board[i][j]]!
+                    let val = chara[board[i][j], default: 0]
                     let index = (i / 3) * 3 + j / 3
                     row[i][val] = true
                     col[j][val] = true
