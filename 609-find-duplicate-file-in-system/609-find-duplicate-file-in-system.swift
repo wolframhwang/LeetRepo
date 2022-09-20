@@ -10,9 +10,9 @@ class Solution {
                 let file = p[i]
                 guard let parenthese = file.firstIndex(of: "(") else { continue }
                 let filePath = dir + "/" + file[..<parenthese]
-                let next = file.index(after: parenthese)
+                let startIndex = file.index(after: parenthese)
                 let endIndex = file.index(before: file.endIndex)
-                let content = String(file[next..<endIndex])
+                let content = String(file[startIndex..<endIndex])
                 map[content, default: []].append(filePath)
             }
         }
