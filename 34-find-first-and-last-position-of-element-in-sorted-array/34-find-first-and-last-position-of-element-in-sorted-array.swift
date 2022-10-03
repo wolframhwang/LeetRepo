@@ -32,7 +32,7 @@ class Solution {
         self.nums = nums
         let s = lowerBound(target)
         let e = upperBound(target) - 1
-//        print(s, e)
+
         if s > e { return [-1,-1]}
         return [s, e]
     }
